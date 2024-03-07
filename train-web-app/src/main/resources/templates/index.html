@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Information Consumer</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Train Information</h1>
+        <form action="#" th:action="@{/train}" th:object="${trainIdForm}" method="get" class="form-inline">
+            <div class="form-group">
+                <label for="trainId">Enter Train ID:</label>
+                <input type="text" id="trainId" name="trainId" class="form-control mr-2">
+            </div>
+            <button type="submit" class="btn btn-primary">Get Train Information</button>
+        </form>
+
+        <div th:if="${trainInfo}">
+            <h2>Train Details</h2>
+            <p th:text="'Train Number: ' + ${trainInfo.train.trainNumber}" class="mb-3"></p>
+            <p th:text="'Train Name: ' + ${trainInfo.train.trainName}" class="mb-3"></p>
+            <h3>Stations:</h3>
+            <ul class="list-group">
+                <li th:each="station : ${trainInfo.stations}" th:text="${station.stationName}" class="list-group-item"></li>
+            </ul>
+        </div>
+
+        <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
